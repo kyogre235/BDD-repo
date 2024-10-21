@@ -118,8 +118,8 @@ alter table Visitar add constraint fk_evento_visitar foreign key  (IdEvento) ref
 comment on table Visitar is 'Tabla que contiene a que eventos han asistido los Usuarios';
 comment on column Visitar.IdUsuario is 'Llave del Usuario que asistio al evento';
 comment on column Visitar.IdEvento is 'Llave del Evento al que asistio el Usuario';
-comment on constraint fk_usuario_visitar on Visitar is 'Llave foranea por parte del Usuario';
-comment on constraint fk_evento_visitar on Visitar is 'Llave foranea por parte del Evento';
+comment on constraint fk_usuario_visitar on Visitar is 'Llave foranea por parte del Usuario (D:Cascade/U:Cascade)';
+comment on constraint fk_evento_visitar on Visitar is 'Llave foranea por parte del Evento (D:Cascade/U:Cascade)';
 
 
 create table if not exists Patrocinador(
@@ -134,7 +134,7 @@ comment on table Patrocinador is 'Tabla que contiene los Patrocinadores de cada 
 comment on column Patrocinador.IdDisciplina is 'Llave de la Disciplina que es patrocinada';
 comment on column Patrocinador.Patrocinador is 'Patrocinador de las Disciplinas';
 comment on constraint Patrocinador_pk on Patrocinador is 'Llave primaria de Patrocinador';
-comment on constraint fk_Disciplina_Patrocinador on Patrocinador is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_Disciplina_Patrocinador on Patrocinador is 'Llave foranea por parte de la Disciplina (D:Cascade/U:Cascade)';
 
 create table if not exists Pais(
 	TRICLAVE char(3),
@@ -199,7 +199,7 @@ comment on column TelefonoEntrenador.IdOlimpicoE is 'Llave del Entrenador al que
 comment on column TelefonoEntrenador.Telefono is 'Telefonos del Entrenador';
 comment on constraint TelefonoE_pk on TelefonoEntrenador is 'Llave primaria de TelefonoEntrenador';
 comment on constraint TelefonoEntrenador_d1 on TelefonoEntrenador is 'Restriccion de patron del Telefono';
-comment on constraint fk_Entrenador_Telefono on TelefonoEntrenador is 'Llave foranea por parte de Entrenador';
+comment on constraint fk_Entrenador_Telefono on TelefonoEntrenador is 'Llave foranea por parte de Entrenador (D:Cascade/U:Cascade)';
 
 
 create table if not exists EmailEntrenador(
@@ -216,7 +216,7 @@ comment on column EmailEntrenador.IdOlimpicoE is 'Llave del Entrenador al que pe
 comment on column EmailEntrenador.Email is 'Emails del entrenador';
 comment on constraint EmailE_pk on EmailEntrenador is 'Llave primaria de EmailEntrenador';
 comment on constraint EmailEntrenador_d1 on EmailEntrenador is 'Restriccion de patron del Email';
-comment on constraint fk_Entrenador_Email on EmailEntrenador is 'Llave foranea por parte del Entrenador';
+comment on constraint fk_Entrenador_Email on EmailEntrenador is 'Llave foranea por parte del Entrenador (D:Cascade/U:Cascade)';
 
 
 create table if not exists Atleta(
@@ -259,8 +259,8 @@ comment on constraint Atleta_d3 on Atleta is 'Restriccion de no vacio de Apellid
 comment on constraint Atleta_d4 on Atleta is 'Restriccion de longitud de Genero';
 comment on constraint Atleta_d5 on Atleta is 'Restriccion de Genero en 2 opciones';
 comment on constraint Atleta_d6 on Atleta is 'Restriccion de longitud en TRICLAVE';
-comment on constraint fk_Entrenador_Atleta on Atleta is 'Llave foranea por parte de Entrenador';
-comment on constraint fk_Pais_Atleta on Atleta is 'Llave foranea por parte de Pais';
+comment on constraint fk_Entrenador_Atleta on Atleta is 'Llave foranea por parte de Entrenador (D:Restrict/U:Cascade)';
+comment on constraint fk_Pais_Atleta on Atleta is 'Llave foranea por parte de Pais (D:Restrict/U:Cascade)';
 
 create table if not exists Medalla(
 	IdMedalla bigint,
@@ -282,8 +282,8 @@ comment on column Medalla.IdOlimpicoA is 'Atleta que gano la medalla';
 comment on column Medalla.Lugar is 'Lugar en la categoria de la medalla en la que quedo el Atleta';
 comment on constraint Medalla_pk on Medalla is 'Llave primaria de Medalla';
 comment on constraint Medalla_d1 on Medalla is 'Restriccion del tipo de medalla';
-comment on constraint fk_Atleta_Medalla on Medalla is 'Llave foranea por parte del Atleta';
-comment on constraint fk_Atleta_Disciplina on Medalla is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_Atleta_Medalla on Medalla is 'Llave foranea por parte del Atleta (D:Restrict/U:Cascade)';
+comment on constraint fk_Atleta_Disciplina on Medalla is 'Llave foranea por parte de la Disciplina (D:Restrict/U:Cascade)';
 
 create table if not exists TelefonoAtleta(
 	IdOlimpicoA bigint,
@@ -299,7 +299,7 @@ comment on column TelefonoAtleta.IdOlimpicoA is 'Llave del Atleta al que pertene
 comment on column TelefonoAtleta.Telefono is 'Telefonos del Atleta';
 comment on constraint TelefonoA_pk on TelefonoAtleta is 'Llave primaria de TelefonoAtleta';
 comment on constraint TelefonoAtleta_d1 on TelefonoAtleta is 'Restriccion de patron del telefono';
-comment on constraint fk_Atleta_Telefono on TelefonoAtleta is 'Llave foranea por parte del Atleta';
+comment on constraint fk_Atleta_Telefono on TelefonoAtleta is 'Llave foranea por parte del Atleta (D:Cascade/U:Cascade)';
 
 
 create table if not exists EmailAtleta(
@@ -316,7 +316,7 @@ comment on column EmailAtleta.IdOlimpicoA is 'Llave del Atleta al que pertenece 
 comment on column EmailAtleta.Email is 'Emails del Atleta';
 comment on constraint EmailA_pk on EmailAtleta is 'Llave primaria de EmailAtleta';
 comment on constraint EmailAtleta_d1 on EmailAtleta is 'Restriccion de patron del Email';
-comment on constraint fk_Atleta_Email on EmailAtleta is 'Llave foranea por parte del Atleta';
+comment on constraint fk_Atleta_Email on EmailAtleta is 'Llave foranea por parte del Atleta (D:Cascade/U:Cascade)';
 
 
 create table if not exists Juez(
@@ -365,7 +365,7 @@ comment on column TelefonoJuez.IdOlimpicoJ is 'Llave del Juez al que pertenece e
 comment on column TelefonoJuez.Telefono is 'Telefonos del Juez';
 comment on constraint TelefonoJ_pk on TelefonoJuez is 'Llave primaria de TelefonoJuez';
 comment on constraint TelefonoJuez_d1 on TelefonoJuez is 'Restriccion de patron del Telefono';
-comment on constraint fk_Juez_Telefono on TelefonoJuez is 'Llave foranea por parte del Juez';
+comment on constraint fk_Juez_Telefono on TelefonoJuez is 'Llave foranea por parte del Juez (D:Cascade/U:Cascade)';
 
 
 create table if not exists EmailJuez(
@@ -382,7 +382,7 @@ comment on column EmailJuez.IdOlimpicoJ is 'Llave del Juez al que pertenece el E
 comment on column EmailJuez.Email is 'Emails del Juez';
 comment on constraint EmailJ_pk on EmailJuez is 'Llave primaria de EmailJuez';
 comment on constraint EmailJuez_d1 on EmailJuez is 'Restriccion de patron del Email';
-comment on constraint fk_Juez_Email on EmailJuez is 'Llave foranea por parte del Juez';
+comment on constraint fk_Juez_Email on EmailJuez is 'Llave foranea por parte del Juez (D:Cascade/U:Cascade)';
 
 
 create table if not exists TrabajarAtleta(
@@ -398,8 +398,8 @@ alter table TrabajarAtleta add constraint fk_disciplina_trabajar foreign key (Id
 comment on table TrabajarAtleta is 'Tabla que guarda en que Disciplina trabajan los Atletas';
 comment on column TrabajarAtleta.IdOlimpicoA is 'Atleta que esta trabajando';
 comment on column TrabajarAtleta.IdDisciplina is 'Disciplina en la que trabaja';
-comment on constraint fk_Atleta_trabajar on TrabajarAtleta is 'Llave foranea por parte del Atleta';
-comment on constraint fk_disciplina_trabajar on TrabajarAtleta is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_Atleta_trabajar on TrabajarAtleta is 'Llave foranea por parte del Atleta (D:Cascade/U:Cascade)';
+comment on constraint fk_disciplina_trabajar on TrabajarAtleta is 'Llave foranea por parte de la Disciplina (D:Cascade/U:Cascade)';
 
 
 create table if not exists TrabajarEntrenador(
@@ -415,8 +415,8 @@ alter table TrabajarEntrenador add constraint fk_disciplina_trabajar foreign key
 comment on table TrabajarEntrenador is 'Tabla que guarda en que Disciplina trabajan los Entrenadores';
 comment on column TrabajarEntrenador.IdOlimpicoE is 'Entrenador que esta trabajando';
 comment on column TrabajarEntrenador.IdDisciplina is 'Disciplina en la que trabaja';
-comment on constraint fk_Entrenador_trabajar on TrabajarEntrenador is 'Llave foranea por parte del Entrenador';
-comment on constraint fk_disciplina_trabajar on TrabajarEntrenador is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_Entrenador_trabajar on TrabajarEntrenador is 'Llave foranea por parte del Entrenador (D:Cascade/U:Cascade)';
+comment on constraint fk_disciplina_trabajar on TrabajarEntrenador is 'Llave foranea por parte de la Disciplina (D:Cascade/U:Cascade)';
 
 create table if not exists TrabajarJuez(
 	IdOlimpicoJ bigint,
@@ -431,8 +431,8 @@ alter table TrabajarJuez add constraint fk_disciplina_trabajar foreign key (IdDi
 comment on table TrabajarJuez is 'Tabla que guarda en que Disciplina trabajan los Jueces';
 comment on column TrabajarJuez.IdOlimpicoJ is 'Juez que esta trabajando';
 comment on column TrabajarJuez.IdDisciplina is 'Disciplina en la que trabaja';
-comment on constraint fk_Juez_trabajar on TrabajarJuez is 'Llave foranea por parte del Juez';
-comment on constraint fk_disciplina_trabajar on TrabajarJuez is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_Juez_trabajar on TrabajarJuez is 'Llave foranea por parte del Juez (D:Cascade/U:Cascade)';
+comment on constraint fk_disciplina_trabajar on TrabajarJuez is 'Llave foranea por parte de la Disciplina (D:Cascade/U:Cascade)';
 
 create table if not exists ParticiparAtleta(
 	IdEvento bigint,
@@ -447,8 +447,8 @@ alter table ParticiparAtleta add constraint fk_Evento_participa foreign key (IdE
 comment on table ParticiparAtleta is 'Tabla que guarda en que Eventos participan los Atletas';
 comment on column ParticiparAtleta.IdOlimpicoA is 'Atleta que participa';
 comment on column ParticiparAtleta.IdEvento is 'Evento en el que participa';
-comment on constraint fk_Atleta_participa on ParticiparAtleta is 'Llave foranea por parte del Atleta';
-comment on constraint fk_Evento_participa on ParticiparAtleta is 'Llave foranea por parte del Evento';
+comment on constraint fk_Atleta_participa on ParticiparAtleta is 'Llave foranea por parte del Atleta (D:Cascade/U:Cascade)';
+comment on constraint fk_Evento_participa on ParticiparAtleta is 'Llave foranea por parte del Evento (D:Cascade/U:Cascade)';
 
 create table if not exists ParticiparEntrenador(
 	IdEvento bigint,
@@ -463,8 +463,8 @@ alter table ParticiparEntrenador add constraint fk_Evento_participa foreign key 
 comment on table ParticiparEntrenador is 'Tabla que guarda en que Eventos participan los Entrenadores';
 comment on column ParticiparEntrenador.IdOlimpicoE is 'Entrenador que participa';
 comment on column ParticiparEntrenador.IdEvento is 'Evento en el que participa';
-comment on constraint fk_Entrenador_participa on ParticiparEntrenador is 'Llave foranea por parte del Entrenador';
-comment on constraint fk_Evento_participa on ParticiparEntrenador is 'Llave foranea por parte del Evento';
+comment on constraint fk_Entrenador_participa on ParticiparEntrenador is 'Llave foranea por parte del Entrenador (D:Cascade/U:Cascade)';
+comment on constraint fk_Evento_participa on ParticiparEntrenador is 'Llave foranea por parte del Evento (D:Cascade/U:Cascade)';
 
 
 create table if not exists ParticiparJuez(
@@ -480,5 +480,5 @@ alter table ParticiparJuez add constraint fk_Evento_participa foreign key (IdEve
 comment on table ParticiparJuez is 'Tabla que guarda en que Eventos participan los Atletas';
 comment on column ParticiparJuez.IdOlimpicoJ is 'Juez que participa';
 comment on column ParticiparJuez.IdEvento is 'Evento en el que participa';
-comment on constraint fk_Juez_participa on ParticiparJuez is 'Llave foranea por parte del Juez';
-comment on constraint fk_Evento_participa on ParticiparJuez is 'Llave foranea por parte del Evento';
+comment on constraint fk_Juez_participa on ParticiparJuez is 'Llave foranea por parte del Juez (D:Cascade/U:Cascade)';
+comment on constraint fk_Evento_participa on ParticiparJuez is 'Llave foranea por parte del Evento (D:Cascade/U:Cascade)';
