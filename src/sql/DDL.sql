@@ -13,8 +13,8 @@ create table IF NOT exists Localidad (
 	Aforo integer
 );
 
-alter table Localidad alter column IdLocalidad set not null;
-alter table Localidad add constraint Localidad_d1 unique (IdLocalidad);
+--alter table Localidad alter column IdLocalidad set not null;
+--alter table Localidad add constraint Localidad_d1 unique (IdLocalidad);
 alter table Localidad add constraint Localidad_pk primary key (IdLocalidad);
 alter table Localidad add constraint Localidad_d2 check(Nombre <> '');
 alter table Localidad add constraint Localidad_d3 check(Tipo <> '');
@@ -34,7 +34,7 @@ comment on column Localidad.Ciudad is 'Ciudad de la Localidad';
 comment on column Localidad.Pais  is 'Pais de la Localidad';
 comment on column Localidad.Aforo is 'Cantidad de personas que puede alojar la localidad';
 comment on constraint Localidad_pk on Localidad is 'Llave primaria de Localidad';
-comment on constraint Localidad_d1 on Localidad is 'Restriccion de unique en idLocalidad';
+--comment on constraint Localidad_d1 on Localidad is 'Restriccion de unique en idLocalidad';
 comment on constraint Localidad_d2 on Localidad is 'Restriccion de no vacio en Nombre';
 comment on constraint Localidad_d3 on Localidad is 'Restriccion de no vacio en Tipo';
 comment on constraint Localidad_d4 on Localidad is 'Restriccion de no vacio en Calle';
@@ -48,14 +48,14 @@ create table if not exists Usuario(
 	IdUsuario varchar(45)
 );
 
-alter table Usuario alter column IdUsuario set not null;
-alter table Usuario add constraint Usuario_d1 unique (IdUsuario);
+--alter table Usuario alter column IdUsuario set not null;
+--alter table Usuario add constraint Usuario_d1 unique (IdUsuario);
 alter table Usuario add constraint Usuario_pk primary key (IdUsuario);
 
 comment on table Usuario is 'Tabla de Usuarios';
 comment on column Usuario.IdUsuario is 'Identificador del Usuario';
 comment on constraint Usuario_pk on Usuario is 'Llave primaria de Usuario';
-comment on constraint Usuario_d1 on Usuario is 'Restriccion unique en IdUsuario';
+--comment on constraint Usuario_d1 on Usuario is 'Restriccion unique en IdUsuario';
 
 
 create table if not exists Disciplina (
@@ -65,9 +65,9 @@ create table if not exists Disciplina (
 	Nombre varchar(150)
 );
 
-alter table Disciplina alter column IdDisciplina set not null;
-alter table Disciplina alter column IdLocalidad set not null;
-alter table Disciplina add constraint Disciplina_d1 unique (IdDIsciplina);
+--alter table Disciplina alter column IdDisciplina set not null;
+--alter table Disciplina alter column IdLocalidad set not null;
+--alter table Disciplina add constraint Disciplina_d1 unique (IdDIsciplina);
 alter table Disciplina add constraint Disciplina_pk primary key (IdDisciplina);
 alter table Disciplina add constraint Disciplina_d2 check (Categoria <> '');
 alter table Disciplina add constraint Disciplina_d3 check (Nombre <> '');
@@ -78,11 +78,11 @@ comment on column Disciplina.IdDisciplina is 'Identificador de la Disciplina';
 comment on column Disciplina.IdLocalidad is 'Llave de la Localidad en la que se llevara acabo la Disciplina';
 comment on column Disciplina.Categoria is 'Tipo de categoria de la Disciplina';
 comment on column Disciplina.Nombre is 'El Nombre de la categoria';
-comment on constraint Disciplina_d1 on Disciplina is 'Restriccion unique en IdDisciplina';
+--comment on constraint Disciplina_d1 on Disciplina is 'Restriccion unique en IdDisciplina';
 comment on constraint Disciplina_d2 on Disciplina is 'Restriccion de no vacio de Categoria';
 comment on constraint Disciplina_d3 on Disciplina is 'Restriccion de no vacio de Nombre';
 comment on constraint Disciplina_pk on Disciplina is 'Llave primaria de Disciplina';
-comment on constraint fk_localidad_disciplina on Disciplina is 'Llave foranea por parte de la Localidad';
+comment on constraint fk_localidad_disciplina on Disciplina is 'Llave foranea por parte de la Localidad (D:Restrict/U:Cascade)';
 
 
 create table if not exists Evento(
@@ -94,11 +94,11 @@ create table if not exists Evento(
 	LlaveEliminatoria integer
 );
 
-alter table Evento alter column IdEvento set not null;
+--alter table Evento alter column IdEvento set not null;
 alter table Evento alter column IdDisciplina set not null;
 alter table Evento alter column Fecha set not null;
 alter table Evento alter column DuracionMax set not null;
-alter table Evento add constraint Evento_d1 unique (IdEvento);
+--alter table Evento add constraint Evento_d1 unique (IdEvento);
 alter table Evento add constraint Evento_pk primary key (IdEvento);
 alter table Evento add constraint Evento_d2 check(PrecioInic > '0' :: money);
 alter table Evento add constraint Evento_d3 check(LlaveEliminatoria > 0);
@@ -111,11 +111,11 @@ comment on column Evento.Fecha is 'La fecha en la que se va llevar acabo el Even
 comment on column Evento.PrecioInic is 'EL precio inicial de las entradas';
 comment on column Evento.DuracionMax is 'La duracion maxima de los eventos';
 comment on column Evento.LlaveEliminatoria is 'Las rondas eliminatorias del Evento llevadas a cabo';
-comment on constraint Evento_d1 on Evento is 'Restriccion unique de IdEvento';
+--comment on constraint Evento_d1 on Evento is 'Restriccion unique de IdEvento';
 comment on constraint Evento_d2 on Evento is 'Restriccion de no negativo en PrecioInic';
 comment on constraint Evento_d3 on Evento is 'Restriccion de no negativo en LlaveEliminatoria';
 comment on constraint Evento_pk on Evento is 'Llave primaria de Evento';
-comment on constraint fk_disciplina_evento on Evento is 'Llave foranea por parte de la Disciplina';
+comment on constraint fk_disciplina_evento on Evento is 'Llave foranea por parte de la Disciplina (D:Restrict/U:Cascade)';
 
 create table if not exists Visitar(
 	IdUsuario varchar(45),
@@ -140,8 +140,8 @@ create table if not exists Patrocinador(
 	Patrocinador varchar(50)
 );
 
-alter table Patrocinador alter column IdDisciplina set not null;
-alter table Patrocinador alter column Patrocinador set not null;
+--alter table Patrocinador alter column IdDisciplina set not null;
+--alter table Patrocinador alter column Patrocinador set not null;
 alter table Patrocinador add constraint fk_Disciplina_patrocinador foreign key (IdDisciplina) references Disciplina(IdDisciplina) on delete cascade on update cascade;
 alter table Patrocinador add constraint Patrocinador_pk primary key (IdDisciplina,Patrocinador);
 
@@ -156,8 +156,8 @@ create table if not exists Pais(
 	Nombre varchar(50)
 );
 
-alter table Pais alter column TRICLAVE set not null;
-alter table Pais add constraint Pais_d1 unique(TRICLAVE);
+--alter table Pais alter column TRICLAVE set not null;
+--alter table Pais add constraint Pais_d1 unique(TRICLAVE);
 alter table Pais add constraint Pais_d2 check(char_length(TRICLAVE)=3);
 alter table Pais add constraint Pais_pk primary key (TRICLAVE);
 alter table Pais add constraint Pais_d3 check(Nombre<>'');
@@ -165,7 +165,7 @@ alter table Pais add constraint Pais_d3 check(Nombre<>'');
 comment on table Pais is 'Tabla que contiene los paises participanetes de los JJOO';
 comment on column Pais.TRICLAVE is 'TRICLAVE del Pais';
 comment on column Pais.Nombre is 'Nombre del Pais al que esta relacionado la TRICLAVE';
-comment on constraint Pais_d1 on Pais is 'Restriccion unique de TRICLAVE';
+--comment on constraint Pais_d1 on Pais is 'Restriccion unique de TRICLAVE';
 comment on constraint Pais_d2 on Pais is 'Restriccion de tamaño de la TRICLAVE ';
 comment on constraint Pais_d3 on Pais is 'Restriccion de no vacio de Nombre';
 comment on constraint pais_pk on Pais is 'Llave primaria de un pais';
@@ -180,10 +180,10 @@ create table if not exists Entrenador(
 	Genero char(1)
 );
 
-alter table Entrenador alter column IdOlimpicoE set not null;
+--alter table Entrenador alter column IdOlimpicoE set not null;
 alter table Entrenador alter column FechaNacimiento set not null;
-alter table ENtrenador add constraint Entrenador_d1 unique (IdOlimpicoE);
-alter table ENtrenador add constraint Entrenador_pk primary key (IdOlimpicoE);
+--alter table Entrenador add constraint Entrenador_d1 unique (IdOlimpicoE);
+alter table Entrenador add constraint Entrenador_pk primary key (IdOlimpicoE);
 alter table Entrenador add constraint Entrenador_d2 check(Nombre<>'');
 alter table Entrenador add constraint Entrenador_d3 check(ApellidoPaterno<>'');
 alter table Entrenador add constraint Entrenador_d4 check(ApellidoMaterno<>'');
@@ -196,9 +196,9 @@ comment on column Entrenador.IdOlimpicoE is 'Identificador de Entrenador';
 comment on column Entrenador.Nombre is 'Nombre del entrenador';
 comment on column Entrenador.ApellidoPaterno is 'Apellido paterno del entrenador';
 comment on column Entrenador.ApellidoMaterno is 'Apellido materno del entrenador';
-comment on column ENtrenador.FechaNacimiento is 'Fecha de nacimiento del entrenador';
+comment on column Entrenador.FechaNacimiento is 'Fecha de nacimiento del entrenador';
 comment on column Entrenador.Genero is 'Genero del entrenador';
-comment on constraint Entrenador_d1 on Entrenador is 'Restriccion unique en IdOlimpicoE';
+--comment on constraint Entrenador_d1 on Entrenador is 'Restriccion unique en IdOlimpicoE';
 comment on constraint Entrenador_d2 on Entrenador is 'Restriccion de no vacio de Nombre';
 comment on constraint Entrenador_d3 on Entrenador is 'Restriccion de no vacio de ApellidoPaterno';
 comment on constraint Entrenador_d4 on Entrenador is 'Restriccion de no vacio de ApellidoMaterno';
@@ -211,10 +211,10 @@ create table if not exists TelefonoEntrenador(
 	Telefono varchar(15)
 );
 
-alter table TelefonoEntrenador alter column IdOlimpicoE set not null;
-alter table TelefonoEntrenador alter column Telefono set not null;
+--alter table TelefonoEntrenador alter column IdOlimpicoE set not null;
+--alter table TelefonoEntrenador alter column Telefono set not null;
 alter table TelefonoEntrenador add constraint TelefonoEntrenador_d1 check(Telefono ~ '^\+?\d{10,15}$');
-alter table TelefonoENtrenador add constraint fk_Entrenador_Telefono foreign key (IdOlimpicoE) references Entrenador(IdOlimpicoE) on delete cascade on update cascade;
+alter table TelefonoEntrenador add constraint fk_Entrenador_Telefono foreign key (IdOlimpicoE) references Entrenador(IdOlimpicoE) on delete cascade on update cascade;
 alter table TelefonoEntrenador add constraint TelefonoE_pk primary key (IdOlimpicoE,Telefono);
 
 comment on table TelefonoEntrenador is 'Tabla que contiene los Telefonos de los Entrenadores';
@@ -230,8 +230,8 @@ create table if not exists EmailEntrenador(
 	Email varchar(30)
 );
 
-alter table EmailEntrenador alter column IdOlimpicoE set not null;
-alter table EmailEntrenador alter column Email set not null;
+--alter table EmailEntrenador alter column IdOlimpicoE set not null;
+--alter table EmailEntrenador alter column Email set not null;
 alter table EmailEntrenador add constraint EmailEntrenador_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 alter table EmailEntrenador add constraint fk_Entrenador_Email foreign key (IdOlimpicoE) references Entrenador(IdOlimpicoE) on delete cascade on update cascade;
 alter table EmailEntrenador add constraint EmailE_pk primary key (IdOlimpicoE,Email);
@@ -255,10 +255,10 @@ create table if not exists Atleta(
 	Genero char(1)	
 );
 
-alter table Atleta alter column IdOlimpicoA set not null;
+--alter table Atleta alter column IdOlimpicoA set not null;
 alter table Atleta alter column IdOlimpicoE set not null;
 alter table Atleta alter column FechaNacimiento set not null;
-alter table Atleta add constraint Atleta_d1 unique (IdOlimpicoA);
+--alter table Atleta add constraint Atleta_d1 unique (IdOlimpicoA);
 alter table Atleta add constraint Atleta_pk primary key (IdOlimpicoA);
 alter table Atleta add constraint Atleta_d2 check(Nombre<>'');
 alter table Atleta add constraint Atleta_d3 check(ApellidoPaterno<>'');
@@ -279,7 +279,7 @@ comment on column Atleta.ApellidoPaterno is 'Apellido paterno del Atleta';
 comment on column Atleta.ApellidoMaterno is 'Apellido materno del Atleta';
 comment on column Atleta.FechaNacimiento is 'Fecha de nacimiento del Atleta';
 comment on column Atleta.Genero is 'Genero del Atleta';
-comment on constraint Atleta_d1 on Atleta is 'Restriccion unique en IdOlimpicoA';
+--comment on constraint Atleta_d1 on Atleta is 'Restriccion unique en IdOlimpicoA';
 comment on constraint Atleta_d2 on Atleta is 'Restriccion de no vacio de Nombre';
 comment on constraint Atleta_d3 on Atleta is 'Restriccion de no vacio de ApellidoPaterno';
 comment on constraint Atleta_d4 on Atleta is 'Restriccion de no vacio de ApellidoMaterno';
@@ -297,8 +297,8 @@ create table if not exists Medalla(
 	Lugar integer
 ); 
 
-alter table Medalla alter column IdMedalla set not null;
-alter table Medalla alter column IdDisciplina set not null;
+--alter table Medalla alter column IdMedalla set not null;
+--alter table Medalla alter column IdDisciplina set not null;
 alter table Medalla alter column IdOlimpicoA set not null;
 alter table Medalla add constraint Medalla_d1 check(Lugar between 1 and 3);
 alter table Medalla add constraint Medalla_pk primary key (IdMedalla,IdDisciplina);
@@ -320,8 +320,8 @@ create table if not exists TelefonoAtleta(
 	Telefono varchar(15)
 );
 
-alter table TelefonoAtleta alter column IdOlimpicoA set not null;
-alter table TelefonoAtleta alter column Telefono set not null;
+--alter table TelefonoAtleta alter column IdOlimpicoA set not null;
+--alter table TelefonoAtleta alter column Telefono set not null;
 alter table TelefonoAtleta add constraint TelefonoAtleta_d1 check(Telefono ~ '^\+?\d{10,15}$');
 alter table TelefonoAtleta add constraint fk_Atleta_Telefono foreign key (IdOlimpicoA) references Atleta(IdOlimpicoA) on delete cascade on update cascade;
 alter table TelefonoAtleta add constraint TelefonoA_pk primary key (IdOlimpicoA,Telefono);
@@ -339,8 +339,8 @@ create table if not exists EmailAtleta(
 	Email varchar(30)
 );
 
-alter table EmailAtleta alter column IdOlimpicoA set not null;
-alter table EmailAtleta alter column Email set not null;
+--alter table EmailAtleta alter column IdOlimpicoA set not null;
+--alter table EmailAtleta alter column Email set not null;
 alter table EmailAtleta add constraint EmailAtleta_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 alter table EmailAtleta add constraint fk_Atleta_Email foreign key (IdOlimpicoA) references Atleta(IdOlimpicoA) on delete cascade on update cascade;
 alter table EmailAtleta add constraint EmailA_pk primary key (IdOlimpicoA,Email);
@@ -362,9 +362,9 @@ create table if not exists Juez(
 	Genero char(1)
 );
 
-alter table Juez alter column IdOlimpicoJ set not null;
+--alter table Juez alter column IdOlimpicoJ set not null;
 alter table Juez alter column FechaNacimiento set not null;
-alter table Juez add constraint Juez_d1 unique (IdOlimpicoJ);
+--alter table Juez add constraint Juez_d1 unique (IdOlimpicoJ);
 alter table Juez add constraint Juez_pk primary key (IdOlimpicoJ);
 alter table Juez add constraint Juez_d2 check(Nombre<>'');
 alter table Juez add constraint Juez_d3 check(ApellidoPaterno<>'');
@@ -380,7 +380,7 @@ comment on column Juez.ApellidoPaterno is 'Apellido paterno del Juez';
 comment on column Juez.ApellidoMaterno is 'Apellido materno del Juez';
 comment on column Juez.FechaNacimiento is 'Fecha de nacimiento del Juez';
 comment on column Juez.Genero is 'Genero del Juez';
-comment on constraint Juez_d1 on Juez is 'Restriccion unique en IdOlimpicoJ';
+--comment on constraint Juez_d1 on Juez is 'Restriccion unique en IdOlimpicoJ';
 comment on constraint Juez_d2 on Juez is 'Restriccion de no vacio de Nombre';
 comment on constraint Juez_d3 on Juez is 'Restriccion de no vacio de ApellidoPaterno';
 comment on constraint Juez_d4 on Juez is 'Restriccion de no vacio de ApellidoMaterno';
@@ -393,8 +393,8 @@ create table if not exists TelefonoJuez(
 	Telefono varchar(15)
 );
 
-alter table TelefonoJuez alter column IdOlimpicoJ set not null;
-alter table TelefonoJuez alter column Telefono set not null;
+--alter table TelefonoJuez alter column IdOlimpicoJ set not null;
+--alter table TelefonoJuez alter column Telefono set not null;
 alter table TelefonoJuez add constraint TelefonoJuez_d1 check(Telefono ~ '^\+?\d{10,15}$');
 alter table TelefonoJuez add constraint fk_Juez_Telefono foreign key (IdOlimpicoJ) references Juez(IdOlimpicoJ) on delete cascade on update cascade;
 alter table TelefonoJuez add constraint TelefonoJ_pk primary key (IdOlimpicoJ,Telefono);
@@ -412,8 +412,8 @@ create table if not exists EmailJuez(
 	Email varchar(30) not null
 );
 
-alter table EmailJuez alter column IdOlimpicoJ set not null;
-alter table EmailJuez alter column Email set not null;
+--alter table EmailJuez alter column IdOlimpicoJ set not null;
+--alter table EmailJuez alter column Email set not null;
 alter table EmailJuez add constraint EmailJuez_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 alter table EmailJuez add constraint fk_Juez_Email foreign key (IdOlimpicoJ) references Juez(IdOlimpicoJ) on delete cascade on update cascade;
 alter table EmailJuez add constraint EmailJ_pk primary key (IdOlimpicoJ,Email);
@@ -431,6 +431,8 @@ create table if not exists TrabajarAtleta(
 	IdDisciplina integer
 );
 
+alter table TrabajarAtleta alter column IdOlimpicoA set not null;
+alter table TrabajarAtleta alter column IdDisciplina set not null;
 alter table TrabajarAtleta add constraint fk_Atleta_trabajar foreign key (IdOlimpicoA) references Atleta(IdOlimpicoA) on delete cascade on update cascade;
 alter table TrabajarAtleta add constraint fk_disciplina_trabajar foreign key (IdDisciplina) references Disciplina(IdDisciplina) on delete cascade on update cascade;
 
@@ -446,6 +448,8 @@ create table if not exists TrabajarEntrenador(
 	IdDisciplina integer
 );
 
+alter table TrabajarEntrenador alter column IdOlimpicoE set not null;
+alter table TrabajarEntrenador alter column IdDisciplina set not null;
 alter table TrabajarEntrenador add constraint fk_Entrenador_trabajar foreign key (IdOlimpicoE) references Entrenador(IdOlimpicoE) on delete cascade on update cascade;
 alter table TrabajarEntrenador add constraint fk_disciplina_trabajar foreign key (IdDisciplina) references Disciplina(IdDisciplina) on delete cascade on update cascade;
 
@@ -460,6 +464,8 @@ create table if not exists TrabajarJuez(
 	IdDisciplina integer
 );
 
+alter table TrabajarJuez alter column IdOlimpicoJ set not null;
+alter table TrabajarJuez alter column IdDisciplina set not null;
 alter table TrabajarJuez add constraint fk_Juez_trabajar foreign key (IdOlimpicoJ) references Juez(IdOlimpicoJ) on delete cascade on update cascade;
 alter table TrabajarJuez add constraint fk_disciplina_trabajar foreign key (IdDisciplina) references Disciplina(IdDisciplina)on delete cascade on update cascade;
 
@@ -474,6 +480,8 @@ create table if not exists ParticiparAtleta(
 	IdOlimpicoA integer
 );
 
+alter table ParticiparAtleta alter column IdOlimpicoA set not null;
+alter table ParticiparAtleta alter column IdEvento set not null;
 alter table ParticiparAtleta add constraint fk_Atleta_participa foreign key (IdOlimpicoA) references Atleta(IdOlimpicoA) on delete cascade on update cascade;
 alter table ParticiparAtleta add constraint fk_Evento_participa foreign key (IdEvento) references Evento(IdEvento) on delete cascade on update cascade;
 
@@ -488,6 +496,8 @@ create table if not exists ParticiparEntrenador(
 	IdOlimpicoE integer
 );
 
+alter table ParticiparEntrenador alter column IdOlimpicoE set not null;
+alter table ParticiparEntrenador alter column IdEvento set not null;
 alter table ParticiparEntrenador add constraint fk_Entrenador_participa foreign key (IdOlimpicoE) references Entrenador(IdOlimpicoE) on delete cascade on update cascade;
 alter table ParticiparEntrenador add constraint fk_Evento_participa foreign key (IdEvento) references Evento(IdEvento) on delete cascade on update cascade;
 
@@ -503,6 +513,8 @@ create table if not exists ParticiparJuez(
 	IdOlimpicoJ integer
 );
 
+alter table ParticiparJuez alter column IdOlimpicoJ set not null;
+alter table ParticiparJuez alter column IdEvento set not null;
 alter table ParticiparJuez add constraint fk_Juez_participa foreign key (IdOlimpicoJ) references Juez(IdOlimpicoJ) on delete cascade on update cascade;
 alter table ParticiparJuez add constraint fk_Evento_participa foreign key (IdEvento) references Evento(IdEvento) on delete cascade on update cascade;
 
