@@ -2,7 +2,7 @@
 --CREATE SCHEMA public;
 
 create table IF NOT exists Localidad (
-	IdLocalidad integer,
+	IdLocalidad bigint,
 	Nombre varchar(50),
 	Tipo varchar(50),
 	Calle varchar(50),
@@ -52,8 +52,8 @@ comment on constraint Usuario_pk on Usuario is 'Llave primaria de Usuario';
 
 
 create table if not exists Disciplina (
-	IdDisciplina integer,
-	IdLocalidad integer,
+	IdDisciplina bigint,
+	IdLocalidad bigint,
 	Categoria varchar(50),
 	Nombre varchar(150)
 );
@@ -75,8 +75,8 @@ comment on constraint fk_localidad_disciplina on Disciplina is 'Llave foranea po
 
 
 create table if not exists Evento(
-	IdEvento integer,
-	IdDIsciplina integer,
+	IdEvento bigint,
+	IdDIsciplina bigint,
 	Fecha timestamp,
 	PrecioInic money,
 	DuracionMax time,
@@ -106,7 +106,7 @@ comment on constraint fk_disciplina_evento on Evento is 'Llave foranea por parte
 
 create table if not exists Visitar(
 	IdUsuario varchar(45),
-	IdEvento integer
+	IdEvento bigint
 	
 );
 
@@ -123,7 +123,7 @@ comment on constraint fk_evento_visitar on Visitar is 'Llave foranea por parte d
 
 
 create table if not exists Patrocinador(
-	IdDisciplina integer,
+	IdDisciplina bigint,
 	Patrocinador varchar(50)
 );
 
@@ -154,7 +154,7 @@ comment on constraint Pais_d2 on Pais is 'Restriccion de no vacio de Nombre';
 
 
 create table if not exists Entrenador(
-	IdOlimpicoE integer,
+	IdOlimpicoE bigint,
 	Nombre varchar(50),
 	ApellidoPaterno varchar(50),
 	ApellidoMaterno varchar(50),
@@ -186,7 +186,7 @@ comment on constraint Entrenador_d4 on Entrenador is 'Restriccion de longitud de
 comment on constraint Entrenador_d5 on Entrenador is 'Restriccion de Genero en 2 opciones ';
 
 create table if not exists TelefonoEntrenador(
-	IdOlimpicoE integer,
+	IdOlimpicoE bigint,
 	Telefono varchar(15)
 );
 
@@ -203,7 +203,7 @@ comment on constraint fk_Entrenador_Telefono on TelefonoEntrenador is 'Llave for
 
 
 create table if not exists EmailEntrenador(
-	IdOlimpicoE integer,
+	IdOlimpicoE bigint,
 	Email varchar(30)
 );
 
@@ -220,8 +220,8 @@ comment on constraint fk_Entrenador_Email on EmailEntrenador is 'Llave foranea p
 
 
 create table if not exists Atleta(
-	IdOlimpicoA integer,
-	IdOlimpicoE integer,
+	IdOlimpicoA bigint,
+	IdOlimpicoE bigint,
 	TRICLAVE char(3),
 	Nombre varchar(50),
 	ApellidoPaterno varchar(50),
@@ -263,9 +263,9 @@ comment on constraint fk_Entrenador_Atleta on Atleta is 'Llave foranea por parte
 comment on constraint fk_Pais_Atleta on Atleta is 'Llave foranea por parte de Pais';
 
 create table if not exists Medalla(
-	IdMedalla integer,
-	IdDisciplina integer,
-	IdOlimpicoA integer,
+	IdMedalla bigint,
+	IdDisciplina bigint,
+	IdOlimpicoA bigint,
 	Lugar integer
 ); 
 
@@ -286,7 +286,7 @@ comment on constraint fk_Atleta_Medalla on Medalla is 'Llave foranea por parte d
 comment on constraint fk_Atleta_Disciplina on Medalla is 'Llave foranea por parte de la Disciplina';
 
 create table if not exists TelefonoAtleta(
-	IdOlimpicoA integer,
+	IdOlimpicoA bigint,
 	Telefono varchar(15)
 );
 
@@ -303,7 +303,7 @@ comment on constraint fk_Atleta_Telefono on TelefonoAtleta is 'Llave foranea por
 
 
 create table if not exists EmailAtleta(
-	IdOlimpicoA integer,
+	IdOlimpicoA bigint,
 	Email varchar(30)
 );
 
@@ -320,7 +320,7 @@ comment on constraint fk_Atleta_Email on EmailAtleta is 'Llave foranea por parte
 
 
 create table if not exists Juez(
-	IdOlimpicoJ integer,
+	IdOlimpicoJ bigint,
 	Nombre varchar(50),
 	ApellidoPaterno varchar(50),
 	ApellidoMaterno varchar(50),
@@ -349,10 +349,10 @@ comment on constraint Juez_d1 on Juez is 'Restriccion de no vacio de Nombre';
 comment on constraint Juez_d2 on Juez is 'Restriccion de no vacio de ApellidoPaterno';
 comment on constraint Juez_d3 on Juez is 'Restriccion de no vacio de ApellidoMaterno';
 comment on constraint Juez_d4 on Juez is 'Restriccion de longitud de Genero';
-comment on constraint Juez_d6 on Juez is 'Restriccion de Genero en 2 opciones ';
+comment on constraint Juez_d5 on Juez is 'Restriccion de Genero en 2 opciones ';
 
 create table if not exists TelefonoJuez(
-	IdOlimpicoJ integer,
+	IdOlimpicoJ bigint,
 	Telefono varchar(15)
 );
 
@@ -369,8 +369,8 @@ comment on constraint fk_Juez_Telefono on TelefonoJuez is 'Llave foranea por par
 
 
 create table if not exists EmailJuez(
-	IdOlimpicoJ integer not null,
-	Email varchar(30) not null
+	IdOlimpicoJ bigint,
+	Email varchar(30)
 );
 
 alter table EmailJuez add constraint EmailJuez_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
@@ -386,8 +386,8 @@ comment on constraint fk_Juez_Email on EmailJuez is 'Llave foranea por parte del
 
 
 create table if not exists TrabajarAtleta(
-	IdOlimpicoA integer,
-	IdDisciplina integer
+	IdOlimpicoA bigint,
+	IdDisciplina bigint
 );
 
 alter table TrabajarAtleta alter column IdOlimpicoA set not null;
@@ -403,8 +403,8 @@ comment on constraint fk_disciplina_trabajar on TrabajarAtleta is 'Llave foranea
 
 
 create table if not exists TrabajarEntrenador(
-	IdOlimpicoE integer,
-	IdDisciplina integer
+	IdOlimpicoE bigint,
+	IdDisciplina bigint
 );
 
 alter table TrabajarEntrenador alter column IdOlimpicoE set not null;
@@ -419,8 +419,8 @@ comment on constraint fk_Entrenador_trabajar on TrabajarEntrenador is 'Llave for
 comment on constraint fk_disciplina_trabajar on TrabajarEntrenador is 'Llave foranea por parte de la Disciplina';
 
 create table if not exists TrabajarJuez(
-	IdOlimpicoJ integer,
-	IdDisciplina integer
+	IdOlimpicoJ bigint,
+	IdDisciplina bigint
 );
 
 alter table TrabajarJuez alter column IdOlimpicoJ set not null;
@@ -435,8 +435,8 @@ comment on constraint fk_Juez_trabajar on TrabajarJuez is 'Llave foranea por par
 comment on constraint fk_disciplina_trabajar on TrabajarJuez is 'Llave foranea por parte de la Disciplina';
 
 create table if not exists ParticiparAtleta(
-	IdEvento integer,
-	IdOlimpicoA integer
+	IdEvento bigint,
+	IdOlimpicoA bigint
 );
 
 alter table ParticiparAtleta alter column IdOlimpicoA set not null;
@@ -451,8 +451,8 @@ comment on constraint fk_Atleta_participa on ParticiparAtleta is 'Llave foranea 
 comment on constraint fk_Evento_participa on ParticiparAtleta is 'Llave foranea por parte del Evento';
 
 create table if not exists ParticiparEntrenador(
-	IdEvento integer,
-	IdOlimpicoE integer
+	IdEvento bigint,
+	IdOlimpicoE bigint
 );
 
 alter table ParticiparEntrenador alter column IdOlimpicoE set not null;
@@ -468,8 +468,8 @@ comment on constraint fk_Evento_participa on ParticiparEntrenador is 'Llave fora
 
 
 create table if not exists ParticiparJuez(
-	IdEvento integer,
-	IdOlimpicoJ integer
+	IdEvento bigint,
+	IdOlimpicoJ bigint
 );
 
 alter table ParticiparJuez alter column IdOlimpicoJ set not null;
