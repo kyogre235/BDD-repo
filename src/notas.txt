@@ -20,6 +20,9 @@ dependencias (se instalan con pip, ya estan en el ambiente si no quieren crearla
 -psycopg2-binary
 -djangorestframework
 
+(no se subio mi ambiente, XD)
+como crear un ambiente (desde /Practica-8-BDD/)
+python3 -m venv .venv
 
 como activar el ambiente (desde /Practica-8-BDD/):
 source .venv/bin/activate
