@@ -1,0 +1,30 @@
+tablas a elegir:
+- atleta 
+- entrenador 
+
+modelar en atleta:
+-insert (listo)
+-delete (lsito)
+-update (listo)
+-viewAll (listo)
+
+modelar en entrenador:
+-insert (listo)
+-delete (listo)
+-update (listo)
+-viewAll (listo)
+
+
+dependencias (se instalan con pip, ya estan en el ambiente si no quieren crearlas de 0):
+-django
+-psycopg2-binary
+-djangorestframework
+
+
+como activar el ambiente (desde /Practica-8-BDD/):
+source .venv/bin/activate
+
+como correr la practica (desde /Practica-8-BDD/JJOO/)
+python manage.py runserver
+
+
