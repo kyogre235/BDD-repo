@@ -5,6 +5,6 @@ from .views import AtletaAPIView, AtletaApiId, EntrenadorAPIView, EntrenadorApiI
 urlpatterns = [
     path('atleta/', AtletaAPIView.as_view()),
     path('entrenador/', EntrenadorAPIView.as_view() ),
-    path('atletaid/<int:pk>', AtletaApiId.as_view()),
-    path('entrenadorid/<int:pk>', EntrenadorApiId.as_view()),
+    path('atletaid/', AtletaApiId.as_view()),
+    path('entrenadorid/', EntrenadorApiId.as_view()),
 ]

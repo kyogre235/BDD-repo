@@ -17,7 +17,7 @@ class AtletaAPIView(APIView):
             post(request): Crea un nuevo atleta con un ID basado en el tiempo en milisegundos.
     """
 
-    def get(self):
+    def get(self,request):
         """
             Devuelve una lista con todos los atletas.
 
@@ -54,7 +54,7 @@ class AtletaApiId(APIView):
             put(request, pk): Actualiza los datos de un atleta específico.
             delete(request, pk): Elimina un atleta específico.
     """
-    def get(self, request,pk):
+    def get(self, request):
         """
             Devuelve los datos de un atleta específico.
 
@@ -66,7 +66,7 @@ class AtletaApiId(APIView):
                 Response: JSON con los datos del atleta o un error si no se encuentra.
         """
         try:
-            atleta = Atleta.objects.get(pk=pk)  # Busca el atleta por su pk
+            atleta = Atleta.objects.get(pk=request.data['idolimpicoa'])  # Busca el atleta por su pk
             # Devuelve los datos del atleta
             return Response({
                 "id": atleta.pk,
@@ -76,7 +76,7 @@ class AtletaApiId(APIView):
         except Atleta.DoesNotExist:
             return Response({"error": "Atleta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-    def put(self, request, pk):
+    def put(self, request):
         """
             Actualiza los datos de un atleta específico.
 
@@ -89,11 +89,10 @@ class AtletaApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Atleta.objects.get(pk=pk)
+            instancia = Atleta.objects.get(pk=request.data['idolimpicoa'])
         except Atleta.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-        request.data['idolimpicoa'] = pk
 
         # Actualiza la instancia usando los datos del request
         serializer = AtletaSerializer(instancia, data=request.data)
@@ -103,7 +102,7 @@ class AtletaApiId(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
+    def delete(self, request):
         """
             Elimina un atleta específico.
 
@@ -116,7 +115,7 @@ class AtletaApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Atleta.objects.get(pk=pk)
+            instancia = Atleta.objects.get(pk=request.data['idolimpicoa'])
         except Atleta.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -132,7 +131,7 @@ class EntrenadorAPIView(APIView):
             get(request): Devuelve una lista con todos los entrenadores.
             post(request): Crea un nuevo entrenador con un ID basado en el tiempo en milisegundos.
     """
-    def get(self):
+    def get(self,request):
         """
             Devuelve una lista con todos los entrenadores.
 
@@ -168,7 +167,7 @@ class EntrenadorApiId(APIView):
             put(request, pk): Actualiza los datos de un entrenador específico.
             delete(request, pk): Elimina un entrenador específico.
     """
-    def get(self, request,pk):
+    def get(self, request):
         """
             Devuelve los datos de un entrenador específico.
 
@@ -180,7 +179,7 @@ class EntrenadorApiId(APIView):
                 Response: JSON con los datos del entrenador o un error si no se encuentra.
         """
         try:
-            entrenador = Entrenador.objects.get(pk=pk)  # Busca el atleta por su pk
+            entrenador = Entrenador.objects.get(pk = request.data['idolimpicoa'])  # Busca el atleta por su pk
             # Devuelve los datos del atleta
             return Response({
                 "id": entrenador.pk,
@@ -190,7 +189,7 @@ class EntrenadorApiId(APIView):
         except Atleta.DoesNotExist:
             return Response({"error": "Atleta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-    def put(self, request, pk):
+    def put(self, request):
         """
             Actualiza los datos de un entrenador específico.
 
@@ -203,11 +202,10 @@ class EntrenadorApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Entrenador.objects.get(pk=pk)
+            instancia = Entrenador.objects.get(pk=request.data['idolimpicoa'])
         except Entrenador.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-        request.data['idolimpicoe'] = pk
 
         # Actualiza la instancia usando los datos del request
         serializer = EntrenadorSerializer(instancia, data=request.data)
@@ -217,7 +215,7 @@ class EntrenadorApiId(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
+    def delete(self, request):
         """
             Elimina un entrenador específico.
 
@@ -230,7 +228,7 @@ class EntrenadorApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Entrenador.objects.get(pk=pk)
+            instancia = Entrenador.objects.get(pk=request.data['idolimpicoa'])
         except Entrenador.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
         # Elimina el objeto
