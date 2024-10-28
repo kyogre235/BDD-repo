@@ -60,7 +60,6 @@ class AtletaApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP.
-                pk (int): ID del atleta.
 
             Returns:
                 Response: JSON con los datos del atleta o un error si no se encuentra.
@@ -82,7 +81,6 @@ class AtletaApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP, contiene los datos actualizados.
-                pk (int): ID del atleta a actualizar.
 
             Returns:
                     Response: JSON con los datos del atleta actualizado o errores de validación.
@@ -108,7 +106,6 @@ class AtletaApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP.
-                pk (int): ID del atleta a eliminar.
 
             Returns:
                 Response: Mensaje de éxito o error si no se encuentra el atleta.
@@ -173,7 +170,6 @@ class EntrenadorApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP.
-                pk (int): ID del entrenador.
 
             Returns:
                 Response: JSON con los datos del entrenador o un error si no se encuentra.
@@ -195,7 +191,6 @@ class EntrenadorApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP, contiene los datos actualizados.
-                pk (int): ID del entrenador a actualizar.
 
             Returns:
                 Response: JSON con los datos del entrenador actualizado o errores de validación.
@@ -221,7 +216,6 @@ class EntrenadorApiId(APIView):
 
             Args:
                 request (Request): Objeto de solicitud HTTP.
-                pk (int): ID del entrenador a eliminar.
 
             Returns:
                 Response: Mensaje de éxito o error si no se encuentra el entrenador.
