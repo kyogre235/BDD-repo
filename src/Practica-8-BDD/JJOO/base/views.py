@@ -175,7 +175,7 @@ class EntrenadorApiId(APIView):
                 Response: JSON con los datos del entrenador o un error si no se encuentra.
         """
         try:
-            entrenador = Entrenador.objects.get(pk = request.data['idolimpicoa'])  # Busca el atleta por su pk
+            entrenador = Entrenador.objects.get(pk = request.data['idolimpicoe'])  # Busca el atleta por su pk
             # Devuelve los datos del atleta
             return Response({
                 "id": entrenador.pk,
@@ -197,7 +197,7 @@ class EntrenadorApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Entrenador.objects.get(pk=request.data['idolimpicoa'])
+            instancia = Entrenador.objects.get(pk=request.data['idolimpicoe'])
         except Entrenador.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -222,7 +222,7 @@ class EntrenadorApiId(APIView):
         """
         try:
             # Busca el objeto en la base de datos por su pk
-            instancia = Entrenador.objects.get(pk=request.data['idolimpicoa'])
+            instancia = Entrenador.objects.get(pk=request.data['idolimpicoe'])
         except Entrenador.DoesNotExist:
             return Response({"error": "Objeto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
         # Elimina el objeto

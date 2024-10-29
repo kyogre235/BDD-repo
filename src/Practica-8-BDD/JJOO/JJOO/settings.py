@@ -75,12 +75,14 @@ WSGI_APPLICATION = 'JJOO.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+password = "2009psp2"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '2009psp2',
+        'PASSWORD': password,
         'HOST': 'localhost',
         'PORT': '5432',
     }
