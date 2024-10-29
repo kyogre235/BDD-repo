@@ -69,8 +69,14 @@ class AtletaApiId(APIView):
             # Devuelve los datos del atleta
             return Response({
                 "id": atleta.pk,
-                "nombre": atleta.nombre,
+                "idolimpicoe" : atleta.idolimpicoe,
                 "triclave": atleta.triclave,
+                "nombre": atleta.nombre,
+                "apellidopaterno": atleta.apellidopaterno,
+                "apellidomaterno": atleta.apellidomaterno,
+                "fechanacimiento": atleta.fechanacimiento,
+                "genero": atleta.genero,
+
             })
         except Atleta.DoesNotExist:
             return Response({"error": "Atleta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
@@ -180,7 +186,10 @@ class EntrenadorApiId(APIView):
             return Response({
                 "id": entrenador.pk,
                 "nombre": entrenador.nombre,
-                "apellido": entrenador.apellidopaterno,
+                "apellidopaterno": entrenador.apellidopaterno,
+                "apellidomaterno": entrenador.apellidomaterno,
+                "fechanacimiento": entrenador.fechanacimiento,
+                "genero": entrenador.genero,
             })
         except Atleta.DoesNotExist:
             return Response({"error": "Atleta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
