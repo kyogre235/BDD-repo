@@ -37,3 +37,6 @@ join disciplina d on m.iddisciplina = d.iddisciplina
 join atleta a  on m.idolimpicoa = a.idolimpicoa 
 where d.nombre ='halterofilia'
 --Query #10
+
+
+select  *

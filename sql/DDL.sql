@@ -155,6 +155,7 @@ comment on constraint Pais_d2 on Pais is 'Restriccion de no vacio de Nombre';
 
 create table if not exists Entrenador(
 	IdOlimpicoE bigint,
+	TRICLAVE char(3),
 	Nombre varchar(50),
 	ApellidoPaterno varchar(50),
 	ApellidoMaterno varchar(50),
@@ -321,6 +322,7 @@ comment on constraint fk_Atleta_Email on EmailAtleta is 'Llave foranea por parte
 
 create table if not exists Juez(
 	IdOlimpicoJ bigint,
+	TRICLAVE char(3),
 	Nombre varchar(50),
 	ApellidoPaterno varchar(50),
 	ApellidoMaterno varchar(50),
