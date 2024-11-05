@@ -119,5 +119,5 @@ LEFT JOIN Lugar1 l1 ON a.idolimpicoa = l1.idolimpicoa
 LEFT JOIN Lugar2 l2 ON a.idolimpicoa = l2.idolimpicoa
 LEFT JOIN Lugar3 l3 ON a.idolimpicoa = l3.idolimpicoa
 where l1.oro != 0 or l2.plata != 0 or l3.bronce != 0
-order by l1.oro desc nulls last,l2.plata desc nulls last,l3.bronce desc;
+order by l1.oro desc nulls last,l2.plata desc nulls last,l3.bronce desc nulls last;
 
