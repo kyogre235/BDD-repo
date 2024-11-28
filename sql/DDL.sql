@@ -205,7 +205,7 @@ comment on constraint fk_Entrenador_Telefono on TelefonoEntrenador is 'Llave for
 
 create table if not exists EmailEntrenador(
 	IdOlimpicoE bigint,
-	Email varchar(30)
+	Email varchar(45)
 );
 
 alter table EmailEntrenador add constraint EmailEntrenador_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
@@ -305,7 +305,7 @@ comment on constraint fk_Atleta_Telefono on TelefonoAtleta is 'Llave foranea por
 
 create table if not exists EmailAtleta(
 	IdOlimpicoA bigint,
-	Email varchar(30)
+	Email varchar(45)
 );
 
 alter table EmailAtleta add constraint EmailAtleta_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
@@ -372,7 +372,7 @@ comment on constraint fk_Juez_Telefono on TelefonoJuez is 'Llave foranea por par
 
 create table if not exists EmailJuez(
 	IdOlimpicoJ bigint,
-	Email varchar(30)
+	Email varchar(45)
 );
 
 alter table EmailJuez add constraint EmailJuez_d1 check (Email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
