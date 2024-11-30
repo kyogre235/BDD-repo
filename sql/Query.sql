@@ -260,3 +260,33 @@ GROUP BY m.num_participantes, d.Nombre, d.Categoria
 ORDER BY m.num_participantes DESC;
 
 --Query15
+DROP TABLE IF EXISTS atleta_masculino;
+CREATE TEMPORARY TABLE IF NOT EXISTS atleta_masculino AS
+SELECT 
+	p.nombre, 
+	p.triclave, 
+	COUNT(a.genero) AS masculino
+FROM pais p 
+JOIN atleta a ON p.triclave = a.triclave 
+WHERE a.genero = 'M'
+GROUP BY p.nombre, p.triclave;
+
+DROP TABLE IF EXISTS atleta_femenino;
+CREATE TEMPORARY TABLE IF NOT EXISTS atleta_femenino AS
+SELECT 
+	p.nombre, 
+	p.triclave, 
+	COUNT(a.genero) AS femenino
+FROM pais p 
+JOIN atleta a ON p.triclave = a.triclave 
+WHERE a.genero = 'F'
+GROUP BY p.nombre, p.triclave;
+
+SELECT 
+	p.nombre AS pais , 
+	coalesce(f.femenino, 0) AS femeninos, 
+	coalesce(m.masculino, 0) AS masculino
+FROM pais p
+LEFT JOIN atleta_masculino m ON p.triclave = m.triclave
+LEFT JOIN atleta_femenino f ON p.triclave = f.triclave
+ORDER BY Femeninos DESC, Masculino DESC
