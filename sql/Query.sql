@@ -263,30 +263,34 @@ ORDER BY m.num_participantes DESC;
 DROP TABLE IF EXISTS atleta_masculino;
 CREATE TEMPORARY TABLE IF NOT EXISTS atleta_masculino AS
 SELECT 
-	p.nombre, 
-	p.triclave, 
-	COUNT(a.genero) AS masculino
-FROM pais p 
-JOIN atleta a ON p.triclave = a.triclave 
-WHERE a.genero = 'M'
-GROUP BY p.nombre, p.triclave;
+	p.Nombre, 
+	p.TRICLAVE, 
+	COUNT(a.Genero) AS masculino
+FROM Pais p 
+JOIN Atleta a
+	ON p.TRICLAVE = a.TRICLAVE 
+WHERE a.Genero = 'M'
+GROUP BY p.Nombre, p.TRICLAVE;
 
 DROP TABLE IF EXISTS atleta_femenino;
 CREATE TEMPORARY TABLE IF NOT EXISTS atleta_femenino AS
 SELECT 
-	p.nombre, 
-	p.triclave, 
-	COUNT(a.genero) AS femenino
-FROM pais p 
-JOIN atleta a ON p.triclave = a.triclave 
-WHERE a.genero = 'F'
-GROUP BY p.nombre, p.triclave;
+	p.Nombre, 
+	p.TRICLAVE, 
+	COUNT(a.Genero) AS masculino
+FROM Pais p 
+JOIN Atleta a
+	ON p.TRICLAVE = a.TRICLAVE 
+WHERE a.Genero = 'F'
+GROUP BY p.Nombre, p.TRICLAVE;
 
 SELECT 
-	p.nombre AS pais , 
-	coalesce(f.femenino, 0) AS femeninos, 
-	coalesce(m.masculino, 0) AS masculino
-FROM pais p
-LEFT JOIN atleta_masculino m ON p.triclave = m.triclave
-LEFT JOIN atleta_femenino f ON p.triclave = f.triclave
-ORDER BY Femeninos DESC, Masculino DESC
+	p.nombre AS Pais, 
+	COALESCE(f.femenino, 0) AS Femeninos, 
+	COALESCE(m.masculino, 0) AS Masculino
+FROM Pais p
+LEFT JOIN atleta_masculino m
+	ON p.TRICLAVE = m.TRICLAVE
+LEFT JOIN atleta_femenino f
+	ON p.TRICLAVE = f.TRICLAVE
+ORDER BY Femeninos DESC, Masculino DESC;
