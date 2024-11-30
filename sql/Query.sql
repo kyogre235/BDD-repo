@@ -229,9 +229,9 @@ LIMIT 1;
 SELECT
     Pais.Nombre,
     Disciplina.Nombre 
-FROM Disciplina
+FROM Disciplina 
 INNER JOIN Medalla  
-    ON Disciplina.IdDisciplina = Medalla.IdDisciplina 
+    ON Disciplina.IdDisciplina = Medalla.IdDisciplina
 INNER JOIN Atleta 
     ON Atleta.IdOlimpicoA = Medalla.IdOlimpicoA
 INNER JOIN Pais 
@@ -260,13 +260,3 @@ GROUP BY m.num_participantes, d.Nombre, d.Categoria
 ORDER BY m.num_participantes DESC;
 
 --Query15
-SELECT
-    Pais.Nombre,
-    Disciplina.Nombre 
-FROM Disciplina 
-INNER JOIN Medalla  
-    ON Disciplina.IdDisciplina = Medalla.IdDisciplina
-INNER JOIN Atleta 
-    ON Atleta.IdOlimpicoA = Medalla.IdOlimpicoA
-INNER JOIN Pais 
-	ON Atleta.TRICLAVE = Pais.TRICLAVE
