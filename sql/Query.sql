@@ -114,8 +114,8 @@ INNER JOIN Evento
 INNER JOIN TelefonoJuez
     ON Juez.IdOlimpicoJ = TelefonoJuez.IdOlimpicoJ
 INNER JOIN EmailJuez
-	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ  
-WHERE Juez.TRICLAVE = 'USA' OR Juez.TRICLAVE = 'EGY' OR Juez.TRICLAVE = 'JPN' OR Juez.TRICLAVE = 'FRA' OR Juez.TRICLAVE = 'SVK' 
+	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ
+WHERE Juez.TRICLAVE in ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
 
 UNION
 
@@ -133,8 +133,8 @@ INNER JOIN ParticiparJuez
 INNER JOIN Evento
     ON Evento.IdEvento = ParticiparJuez.IdEvento
 INNER JOIN EmailJuez
-	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ  
-WHERE Juez.TRICLAVE = 'USA' OR Juez.TRICLAVE = 'EGY' OR Juez.TRICLAVE = 'JPN' OR Juez.TRICLAVE = 'FRA' OR Juez.TRICLAVE = 'SVK' 
+	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ
+WHERE Juez.TRICLAVE in ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
 ORDER BY Pais ASC, IdJuez DESC;
 
 select Entrenador.Nombre,Entrenador.ApellidoPaterno,Entrenador.ApellidoMaterno,count(Medalla.Lugar) as TotalMedallas
