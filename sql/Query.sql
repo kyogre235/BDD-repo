@@ -1,4 +1,4 @@
---EMMA1
+--Query1
 SELECT *
 FROM Atleta
 INNER JOIN Medalla
@@ -6,7 +6,7 @@ INNER JOIN Medalla
 WHERE Atleta.Genero = 'F'
 ORDER BY Atleta.FechaNacimiento desc;
 
---EMMA2
+--Query2
 SELECT
     Disciplina.nombre AS Disiciplina,
     COUNT(Atleta.idOlimpicoA) AS TotalAtletas,
@@ -21,7 +21,7 @@ INNER JOIN Disciplina
 GROUP BY Disciplina.nombre, Pais.Nombre
 ORDER BY TotalAtletas DESC;
 
---EMMA3
+--Query3
 SELECT 
     Entrenador.Nombre, 
     Entrenador.ApellidoPaterno, 
@@ -36,7 +36,7 @@ WHERE Medalla.Lugar = 1
 GROUP BY Entrenador.idOlimpicoE
 ORDER BY TotalMedallas DESC;
 
---ISAAC1
+--Query4
 SELECT 
     Disciplina.Nombre AS Disciplina,
     Disciplina.IdDisciplina,
@@ -54,8 +54,8 @@ INNER JOIN Atleta AS Atleta2
     ON Atleta1.TRICLAVE = Atleta2.TRICLAVE AND Atleta1.IdOlimpicoA > Atleta2.IdOlimpicoA
 INNER JOIN Medalla AS Medalla2
     ON Atleta2.IdOlimpicoA = Medalla2.IdOlimpicoA;
-   
---ISAAC2
+
+--Query5
 SELECT 
     TrabajarAtleta.IdDisciplina AS Disciplina,
     Atleta.IdOlimpicoA AS IdOlimpicoAE,
@@ -97,7 +97,7 @@ INNER JOIN Entrenador
 WHERE NOT Juez.TRICLAVE = Entrenador.TRICLAVE AND Juez.FechaNacimiento > '1999-12-31'
 ORDER BY IdOlimpicoJ ASC;
 
---ISAAC3
+--Query6
 SELECT 
     TelefonoJuez.Telefono AS Contacto,
     Juez.IdOlimpicoJ AS IdJuez,
@@ -115,7 +115,7 @@ INNER JOIN TelefonoJuez
     ON Juez.IdOlimpicoJ = TelefonoJuez.IdOlimpicoJ
 INNER JOIN EmailJuez
 	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ
-WHERE Juez.TRICLAVE in ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
+WHERE Juez.TRICLAVE IN ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
 
 UNION
 
@@ -134,147 +134,135 @@ INNER JOIN Evento
     ON Evento.IdEvento = ParticiparJuez.IdEvento
 INNER JOIN EmailJuez
 	ON Juez.IdOlimpicoJ = EmailJuez.IdOlimpicoJ
-WHERE Juez.TRICLAVE in ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
+WHERE Juez.TRICLAVE IN ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
 ORDER BY Pais ASC, IdJuez DESC;
 
-select Entrenador.Nombre,Entrenador.ApellidoPaterno,Entrenador.ApellidoMaterno,count(Medalla.Lugar) as TotalMedallas
-from atleta
-inner join Entrenador
-	on Entrenador.idOlimpicoE = Atleta.idOlimpicoE
-inner join Medalla
-	on Medalla.idOlimpicoA = Atleta.idOlimpicoA
-where Medalla.Lugar = 1
-group by Entrenador.idolimpicoe 
-order by TotalMedallas desc;
+--Query7
+SELECT 
+    e.IdEvento,
+    e.Fecha,
+    e.DuracionMax,
+    l.Ciudad,
+    l.Pais 
+FROM Evento e
+INNER JOIN Disciplina d 
+	ON e.IdDisciplina = d.IdDisciplina
+INNER JOIN Localidad l 
+	ON d.IdLocalidad = l.IdLocalidad
+WHERE l.Pais IN ('China', 'United States', 'Indonesia')
+ORDER BY l.Pais;
 
---Query #4
---Todos los eventos (sus identificadores) que se lleven acabo en localidades en China, Estados Unidos o Indonesia
+--Query8
+SELECT
+    a.IdOlimpicoA,
+    a.nombre,
+    a.ApellidoPaterno,
+    a.ApellidoMaterno,
+    COUNT(DISTINCT t.Telefono) AS telefonos,
+    COUNT(DISTINCT e.Email) AS emails 
+FROM Atleta a  
+INNER JOIN Emailatleta e 
+	ON a.IdOlimpicoA = e.IdOlimpicoA 
+INNER JOIN Telefonoatleta t 
+	ON a.IdOlimpicoA = t.IdOlimpicoA
+GROUP BY a.IdOlimpicoA, a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno
+HAVING COUNT(DISTINCT t.Telefono) > 1 AND COUNT(DISTINCT e.Email) > 1
+ORDER BY a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno;
 
-SELECT e.idevento , e.fecha , e.duracionmax, l.ciudad ,l.pais 
-FROM evento e
-inner join disciplina d 
-	on e.iddisciplina = d.iddisciplina
-inner join localidad l 
-	on d.idlocalidad = l.idlocalidad
-where l.pais = 'China' or l.pais = 'United States' or l.pais = 'Indonesia'
-order by l.pais;
+--Query9
+SELECT DISTINCT 
+    u.IdUsuario
+FROM Usuario u 
+INNER JOIN Visitar v 
+	ON u.IdUsuario = v.IdUsuario 
+INNER JOIN Evento e 
+	ON v.IdEvento = e.IdEvento 
+INNER JOIN Disciplina d 
+	ON e.IdDisciplina = d.IdDisciplina
+INNER JOIN Localidad l 
+	ON d.IdLocalidad = l.IdLocalidad 
+WHERE l.Tipo = 'sin techo'
+ORDER BY u.IdUsuario;
 
---Query #5
---Todos los atletas que tengan mas de 1 teléfono y 1 correo electrónico registrado
+--Query10
+SELECT DISTINCT 
+    a.Nombre,
+    a.ApellidoPaterno,
+    a.ApellidoMaterno,
+    p.Nombre 
+FROM Atleta a 
+INNER JOIN Medalla m 
+	ON a.IdOlimpicoA = m.IdOlimpicoA 
+INNER JOIN Pais p 
+	ON a.TRICLAVE = p.TRICLAVE 
+ORDER BY p.Nombre 
 
-select a.idolimpicoa , a.nombre , a.apellidopaterno, a.apellidomaterno, count(distinct t.telefono) as telefonos, count(distinct e.email) as emails 
-from atleta a  
-inner join emailatleta e 
-	on a.idolimpicoa = e.idolimpicoa 
-inner join telefonoatleta t 
-	on a.idolimpicoa = t.idolimpicoa
-group by a.idolimpicoa, a.nombre, a.apellidopaterno, a.apellidomaterno
-having count(distinct t.telefono) > 1 and count(distinct e.email) > 1
-order by a.nombre, a.apellidopaterno, a.apellidomaterno;
+--Query11
+SELECT 
+    Atleta.IdOlimpicoA,
+    Disciplina.nombre,
+    Juez.IdOlimpicoJ 
+FROM Atleta 
+INNER JOIN TrabajarAtleta
+    ON Atleta.IdOlimpicoA = TrabajarAtleta.IdOlimpicoA
+INNER JOIN Disciplina
+    ON TrabajarAtleta.IdDisciplina = Disciplina.IdDisciplina
+INNER JOIN TrabajarJuez 
+    ON TrabajarJuez.IdDisciplina = Disciplina.IdDisciplina
+INNER JOIN Juez
+    ON TrabajarJuez.IdOlimpicoJ = Juez.IdOlimpicoJ
+WHERE Disciplina.Nombre IN ('tiro con arco','lanzamiento de bola') 
+ORDER BY Atleta.IdOlimpicoA DESC;
 
---Query #6
---Todos los Usuarios que visitaron un evento que se llevo acabo en una localidad sin techo.
-
-select distinct u.idusuario
-from usuario u 
-inner join visitar v 
-	on u.idusuario = v.idusuario 
-inner join evento e 
-	on v.idevento = e.idevento 
-inner join disciplina d 
-	on e.iddisciplina = d.iddisciplina
-inner join localidad l 
-	on d.idlocalidad = l.idlocalidad 
-where l.tipo = 'sin techo'
-order by u.idusuario; 
-
--- Comas
---Query #7 
--- El nombre (completo) de todos los Atletas que recibieron medallas ordenados por país.
-
-select distinct  a.nombre, a.apellidopaterno, a.apellidomaterno, p.nombre 
-from atleta a 
-inner join medalla m 
-	on a.idolimpicoa = m.idolimpicoa 
-inner join pais p 
-	on a.triclave = p.triclave 
-order by p.nombre 
-
---Query #8
-/*
-Identificador de los atletas que participaron en las disciplinas de tiro con arco o lanzamiento de bola y los jueces que estan en la misma disciplina
-ordenados por el identificador del atleta de manera descendiente.
-*/
-
-select Atleta.idolimpicoa, Disciplina.nombre, Juez.idolimpicoj 
-from atleta 
-inner join trabajaratleta  on Atleta.idolimpicoa = trabajaratleta.idolimpicoa
-inner join disciplina  on Trabajaratleta.iddisciplina = Disciplina.iddisciplina
-inner join trabajarjuez on Trabajarjuez.iddisciplina = Disciplina.iddisciplina
-inner join Juez on trabajarjuez.idolimpicoj = juez.idolimpicoj
-where disciplina.nombre in ('tiro con arco','lanzamiento de bola') 
-order by Atleta.idolimpicoa desc;
-
---Query #9
--- ¿Cual fue la disciplina en la que mas medallas se obtuvieron?
-SELECT d.nombre AS disciplina, COUNT(m.idmedalla) AS total_medallas
-FROM medalla m
-JOIN disciplina d ON m.iddisciplina = d.iddisciplina
-GROUP BY d.nombre
+--Query12 (tupla única)
+SELECT
+    d.Nombre AS disciplina,
+    COUNT(m.IdMedalla) AS total_medallas
+FROM Medalla m
+JOIN Disciplina d
+    ON m.IdDisciplina = d.IdDisciplina
+GROUP BY d.Nombre
 ORDER BY total_medallas DESC
 LIMIT 1;
 
---Query : Obtener la cantidad de participantes de cada disciplina
-drop table if exists mas_participantes;
-create temporary table if not exists mas_participantes as
-select p.idevento, COUNT(p.idolimpicoa) as num_participantes
-from participaratleta p
-group by p.idevento
-order by count(p.idolimpicoa) desc
+--Query13
+SELECT
+    Pais.Nombre,
+    Disciplina.Nombre 
+FROM Disciplina
+INNER JOIN Medalla  
+    ON Disciplina.IdDisciplina = Medalla.IdDisciplina 
+INNER JOIN Atleta 
+    ON Atleta.IdOlimpicoA = Medalla.IdOlimpicoA
+INNER JOIN Pais 
+    ON Atleta.TRICLAVE = Pais.TRICLAVE
 
-select d.nombre, d.categoria, m.num_participantes
-from mas_participantes m 
-join evento e on m.idevento = e.idevento 
-join disciplina d on d.iddisciplina = e.iddisciplina
-group by  m.num_participantes, d.nombre, d.categoria
-order by m.num_participantes desc 
+--Query14
+DROP TABLE IF EXISTS mas_participantes;
+CREATE temporary TABLE IF NOT EXISTS mas_participantes AS
+SELECT
+    p.IdEvento,
+    COUNT(p.IdOlimpicoA) AS num_participantes
+FROM ParticiparAtleta p
+GROUP BY p.IdEvento
+ORDER BY COUNT(p.IdOlimpicoA) DESC;
 
---Query : Las medallas que cada pais obtuvo
- -- Ocupamos las tablas temporales Lugar 1, Lugar 2 y Lugar 3 para esta query
+SELECT
+    d.Nombre,
+    d.Categoria,
+    m.num_participantes
+FROM mas_participantes m 
+JOIN Evento e
+    ON m.IdEvento = e.IdEvento 
+JOIN Disciplina d
+    ON d.IdDisciplina = e.IdDisciplina
+GROUP BY m.num_participantes, d.Nombre, d.Categoria
+ORDER BY m.num_participantes DESC;
 
-DROP TABLE IF EXISTS Lugar1;
-CREATE TEMPORARY TABLE IF NOT EXISTS Lugar1 AS
-SELECT m.idolimpicoa, SUM(m.lugar) AS Oro
-FROM Medalla m 
-WHERE m.lugar = 1 
-GROUP BY m.idolimpicoa;
-
-DROP TABLE IF EXISTS Lugar2;
-CREATE TEMPORARY TABLE IF NOT EXISTS Lugar2 AS
-SELECT m.idolimpicoa, SUM(m.lugar) AS Plata
-FROM Medalla m 
-WHERE m.lugar = 2
-GROUP BY m.idolimpicoa;
-
-DROP TABLE IF EXISTS Lugar3;
-CREATE TEMPORARY TABLE IF NOT EXISTS Lugar3 AS
-SELECT m.idolimpicoa, SUM(m.lugar) AS Bronce
-FROM Medalla m 
-WHERE m.lugar = 3
-GROUP BY m.idolimpicoa;
-
-select p.nombre, COALESCE(l1.oro, 0) as oro, COALESCE(l2.plata, 0) as plata, COALESCE(l3.bronce, 0) as bronce
-from pais p join atleta a on p.triclave = a.triclave 
-LEFT JOIN Lugar1 l1 ON a.idolimpicoa = l1.idolimpicoa
-LEFT JOIN Lugar2 l2 ON a.idolimpicoa = l2.idolimpicoa
-LEFT JOIN Lugar3 l3 ON a.idolimpicoa = l3.idolimpicoa
-order by oro desc, plata desc, bronce desc;
-
---Query : Paises que ganaron la disciplina
-select Pais.nombre, Disciplina.nombre 
-from disciplina inner join medalla  
-on Disciplina.iddisciplina = Medalla.iddisciplina 
-inner join atleta 
-on Atleta.idolimpicoa = Medalla.idolimpicoa
-inner join pais 
-on Atleta.triclave = Pais.triclave
+--Query15
+SELECT
+    Pais.Nombre,
+    Disciplina.Nombre 
+FROM Disciplina 
+INNER JOIN Medalla  
+    ON Disciplina.IdDisciplina = Medalla.IdDisciplina 
