@@ -1,4 +1,8 @@
 --Query1
+/*
+Obtener la información de las atletas mujeres que ganaron medallas de oro ordenadas por su edad, de la más joven a la
+más vieja.
+*/
 SELECT *
 FROM Atleta
 INNER JOIN Medalla
@@ -7,6 +11,10 @@ WHERE Atleta.Genero = 'F'
 ORDER BY Atleta.FechaNacimiento DESC;
 
 --Query2
+/*
+Ordena las disciplinas, de acuerdo a la que tiene más atletas participando hasta la que tenga el menor número de
+atletas, mostrando este número y de que país proviene la mayoría de estos atletas.
+*/
 SELECT
     Disciplina.nombre AS Disiciplina,
     COUNT(Atleta.idOlimpicoA) AS TotalAtletas,
@@ -22,6 +30,10 @@ GROUP BY Disciplina.nombre, Pais.Nombre
 ORDER BY TotalAtletas DESC;
 
 --Query3
+/*
+Nombre de los entrenadores que trabajaron con los atletas que ganaron medallas olímpicas y cuantas medallas ganaron
+esos atletas.
+*/
 SELECT 
     Entrenador.Nombre, 
     Entrenador.ApellidoPaterno, 
@@ -37,6 +49,10 @@ GROUP BY Entrenador.idOlimpicoE
 ORDER BY TotalMedallas DESC;
 
 --Query4
+/*
+Obtener solo el identificador y nombre de la disciplina donde dos o más Atletas han ganado medallas y compartan
+nacionalidad, mostrando solo el identificador de los atletas y la TRICLAVE del País al que representan.
+*/
 SELECT 
     Disciplina.Nombre AS Disciplina,
     Disciplina.IdDisciplina,
@@ -56,6 +72,11 @@ INNER JOIN Medalla AS Medalla2
     ON Atleta2.IdOlimpicoA = Medalla2.IdOlimpicoA;
 
 --Query5
+/*
+Toda la información de los jueces (sin teléfono, ni email) que hayan nacido después de 1999, y compartan disciplina
+(mostrando su identificador), pero no nacionalidad con algún Atleta o Entrenador, mostrando solo el identificador de
+los atletas o entrenadores, ordenados por el identificador del Juez.
+*/
 SELECT 
     TrabajarAtleta.IdDisciplina AS Disciplina,
     Atleta.IdOlimpicoA AS IdOlimpicoAE,
@@ -98,6 +119,11 @@ WHERE NOT Juez.TRICLAVE = Entrenador.TRICLAVE AND Juez.FechaNacimiento > '1999-1
 ORDER BY IdOlimpicoJ ASC;
 
 --Query6
+/*
+Las formas de contacto (email o teléfono) de jueces que representan a los países de Estados Unidos ('USA') o
+Egipto ('EGY') o Japón ('JPN') o Eslovaquia ('SVK'), y mostrar el nombre, apellido paterno y materno, nacionalidad y
+disciplina en la que trabaja. Ordenado primero por la TRICLAVE y después por el identificador del juez.
+*/
 SELECT 
     TelefonoJuez.Telefono AS Contacto,
     Juez.IdOlimpicoJ AS IdJuez,
@@ -138,6 +164,10 @@ WHERE Juez.TRICLAVE IN ('USA', 'EGY', 'JPN', 'FRA', 'SVK')
 ORDER BY Pais ASC, IdJuez DESC;
 
 --Query7
+/*
+Todos los eventos (sus identificadores, fechas, duracion) que se lleven acabo en localidades en China, Estados Unidos
+o Indonesia
+*/
 SELECT 
     e.IdEvento,
     e.Fecha,
@@ -153,6 +183,9 @@ WHERE l.Pais IN ('China', 'United States', 'Indonesia')
 ORDER BY l.Pais;
 
 --Query8
+/*
+Todos los atletas que tengan mas de 1 teléfono y 1 correo electrónico registrado, ordenados por su nombre completo.
+*/
 SELECT
     a.IdOlimpicoA,
     a.nombre,
@@ -170,6 +203,9 @@ HAVING COUNT(DISTINCT t.Telefono) > 1 AND COUNT(DISTINCT e.Email) > 1
 ORDER BY a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno;
 
 --Query9
+/*
+Todos los Usuarios que visitaron al menos un evento que se llevo acabo en una localidad sin techo.
+*/
 SELECT DISTINCT 
     u.IdUsuario
 FROM Usuario u 
@@ -185,6 +221,9 @@ WHERE l.Tipo = 'sin techo'
 ORDER BY u.IdUsuario;
 
 --Query10
+/*
+El nombre de todos los Atletas que recibieron medallas ordenados por país.
+*/
 SELECT DISTINCT 
     a.Nombre,
     a.ApellidoPaterno,
@@ -198,6 +237,10 @@ INNER JOIN Pais p
 ORDER BY p.Nombre 
 
 --Query11
+/*
+Identificador de los atletas que participaron en las disciplinas de tiro con arco o lanzamiento de bola y los jueces
+que están en la misma disciplina, ordenados por el identificador del atleta de manera descendiente.
+*/
 SELECT 
     Atleta.IdOlimpicoA,
     Disciplina.nombre,
@@ -215,6 +258,9 @@ WHERE Disciplina.Nombre IN ('tiro con arco','lanzamiento de bola')
 ORDER BY Atleta.IdOlimpicoA DESC;
 
 --Query12 (tupla única)
+/*
+¿Cual fue la disciplina en la que mas medallas se obtuvieron?
+*/
 SELECT
     d.Nombre AS disciplina,
     COUNT(m.IdMedalla) AS total_medallas
@@ -226,6 +272,9 @@ ORDER BY total_medallas DESC
 LIMIT 1;
 
 --Query13
+/*
+Obtiene la cantidad de participantes de cada disciplina.
+*/
 SELECT
     Pais.Nombre,
     Disciplina.Nombre 
@@ -238,6 +287,9 @@ INNER JOIN Pais
     ON Atleta.TRICLAVE = Pais.TRICLAVE
 
 --Query14
+/*
+Paises que ganaron la disciplina con oro
+*/
 DROP TABLE IF EXISTS mas_participantes;
 CREATE temporary TABLE IF NOT EXISTS mas_participantes AS
 SELECT
@@ -260,6 +312,9 @@ GROUP BY m.num_participantes, d.Nombre, d.Categoria
 ORDER BY m.num_participantes DESC;
 
 --Query15
+/*
+Cantidad de atletas de género masculino y femenino, por país.
+*/
 DROP TABLE IF EXISTS atleta_masculino;
 CREATE TEMPORARY TABLE IF NOT EXISTS atleta_masculino AS
 SELECT 
