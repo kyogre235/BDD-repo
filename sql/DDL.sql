@@ -170,7 +170,7 @@ alter table Entrenador add constraint Entrenador_d2 check(ApellidoPaterno<>'');
 alter table Entrenador add constraint Entrenador_d3 check(ApellidoMaterno<>'');
 alter table Entrenador add constraint Entrenador_d4 check(char_length(Genero)=1);
 alter table Entrenador add constraint Entrenador_d5 check(Genero in ('F','M'));
-
+alter table Entrenador add constraint fk_Pais_Entrenador foreign key (TRICLAVE) references Pais(TRICLAVE) on delete restrict on update cascade;
 
 comment on table Entrenador is 'Tabla que contiene los de Entrenadores participantes de los JJOO';
 comment on column Entrenador.IdOlimpicoE is 'Identificador de Entrenador';
@@ -337,6 +337,7 @@ alter table Juez add constraint Juez_d2 check(ApellidoPaterno<>'');
 alter table Juez add constraint Juez_d3 check(ApellidoMaterno<>'');
 alter table Juez add constraint Juez_d4 check(char_length(Genero)=1);
 alter table Juez add constraint Juez_d5 check(Genero in ('F','M'));
+alter table Juez add constraint fk_Pais_Juez foreign key (TRICLAVE) references Pais(TRICLAVE) on delete restrict on update cascade;
 
 
 comment on table Juez is 'Tabla que contiene a los Jueces participantes de los JJOO';
