@@ -83,7 +83,7 @@ from medalla m
 join atleta a on m.idolimpicoa = a.idolimpicoa
 where a.triclave = 'ESP' and m.lugar = 3;
 
---Query #9
+--Query #9 
 select a.idolimpicoa as idatleta, a.idolimpicoe as identrenador,a.triclave as pais, 
 a.nombre as nombre, a.apellidopaterno as apellido1, a.apellidomaterno as apellido2, 
 a.fechanacimiento as cumple, a.genero as genero
@@ -121,3 +121,36 @@ LEFT JOIN Lugar3 l3 ON a.idolimpicoa = l3.idolimpicoa
 where l1.oro != 0 or l2.plata != 0 or l3.bronce != 0
 order by l1.oro desc nulls last,l2.plata desc nulls last,l3.bronce desc nulls last;
 
+--Query #11: Obtener la cantidad de participantes de cada disciplina
+drop table if exists mas_participantes;
+create temporary table if not exists mas_participantes as
+select p.idevento, COUNT(p.idolimpicoa) as num_participantes
+from participaratleta p
+group by p.idevento
+order by count(p.idolimpicoa) desc
+
+select d.nombre, d.categoria, m.num_participantes
+from mas_participantes m 
+join evento e on m.idevento = e.idevento 
+join disciplina d on d.iddisciplina = e.iddisciplina
+group by  m.num_participantes, d.nombre, d.categoria
+order by m.num_participantes desc 
+
+--Query #12: Las medallas que cada pais obtuvo
+ -- Ocupamos las tablas temporales Lugar 1, Lugar 2 y Lugar 3 para esta query
+
+select p.nombre, COALESCE(l1.oro, 0) as oro, COALESCE(l2.plata, 0) as plata, COALESCE(l3.bronce, 0) as bronce
+from pais p join atleta a on p.triclave = a.triclave 
+LEFT JOIN Lugar1 l1 ON a.idolimpicoa = l1.idolimpicoa
+LEFT JOIN Lugar2 l2 ON a.idolimpicoa = l2.idolimpicoa
+LEFT JOIN Lugar3 l3 ON a.idolimpicoa = l3.idolimpicoa
+order by oro desc, plata desc, bronce desc;
+
+--Query #13: Paises que ganaron la disciplina
+select Pais.nombre, Disciplina.nombre 
+from disciplina inner join medalla  
+on Disciplina.iddisciplina = Medalla.iddisciplina 
+inner join atleta 
+on Atleta.idolimpicoa = Medalla.idolimpicoa
+inner join pais 
+on Atleta.triclave = Pais.triclave
