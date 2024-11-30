@@ -188,6 +188,7 @@ inner join localidad l
 where l.tipo = 'sin techo'
 order by u.idusuario; 
 
+-- Comas
 --Query #7 
 -- El nombre (completo) de todos los Atletas que recibieron medallas ordenados por país.
 
@@ -200,15 +201,19 @@ inner join pais p
 order by p.nombre 
 
 --Query #8
--- Los Atletas que hayan ganado alguna medalla y cuyo país sea México, Birmania o Venezuela.
+/*
+Identificador de los atletas que participaron en las disciplinas de tiro con arco o lanzamiento de bola y los jueces que estan en la misma disciplina
+ordenados por el identificador del atleta de manera descendiente.
+*/
 
-select distinct  a.nombre, a.apellidopaterno, a.apellidomaterno, p.nombre 
-from atleta a 
-inner join medalla m 
-	on a.idolimpicoa = m.idolimpicoa 
-inner join pais p 
-	on a.triclave = p.triclave
-where p.nombre = 'México' or p.nombre = 'Birmania' or p.nombre = 'Venezuela'
+select Atleta.idolimpicoa, Disciplina.nombre, Juez.idolimpicoj 
+from atleta 
+inner join trabajaratleta  on Atleta.idolimpicoa = trabajaratleta.idolimpicoa
+inner join disciplina  on Trabajaratleta.iddisciplina = Disciplina.iddisciplina
+inner join trabajarjuez on Trabajarjuez.iddisciplina = Disciplina.iddisciplina
+inner join Juez on trabajarjuez.idolimpicoj = juez.idolimpicoj
+where disciplina.nombre in ('tiro con arco','lanzamiento de bola') 
+order by Atleta.idolimpicoa desc;
 
 --Query #9
 -- ¿Cual fue la disciplina en la que mas medallas se obtuvieron?
