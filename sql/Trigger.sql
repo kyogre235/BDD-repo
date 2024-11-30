@@ -1,7 +1,7 @@
 --Triggers
 
 --Trigger #1
--- verificar que si un evento se hace a la misma hora y en el mismo lugar, se tenga aforo suficiente
+-- Verificar que si un evento se hace a la misma hora y en el mismo lugar, se tenga aforo suficiente
 CREATE OR REPLACE FUNCTION verificar_aforo_localidad()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -40,6 +40,7 @@ FOR EACH ROW
 EXECUTE FUNCTION verificar_aforo_localidad();
 
 --Trigger #2
+--Verificar que el usuario no visita 2 eventos al mismo tiempo en diferente lugar
 CREATE OR REPLACE FUNCTION verificar_conflicto_eventos()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -76,6 +77,7 @@ FOR EACH ROW
 EXECUTE FUNCTION verificar_conflicto_eventos();
 
 --Trigger #3
+--Verificar que el atleta que gano la medalla si participe en la disciplina en la que gano
 CREATE OR REPLACE FUNCTION verificar_relacion_medalla()
 RETURNS TRIGGER AS $$
 BEGIN
