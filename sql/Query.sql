@@ -4,7 +4,7 @@ FROM Atleta
 INNER JOIN Medalla
     ON Atleta.idOlimpicoA = Medalla.idOlimpicoA
 WHERE Atleta.Genero = 'F'
-ORDER BY Atleta.FechaNacimiento desc;
+ORDER BY Atleta.FechaNacimiento DESC;
 
 --Query2
 SELECT
