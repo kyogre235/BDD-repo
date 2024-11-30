@@ -1,6 +1,5 @@
-
 --Procedimiento #1
---procedimiento que agrega la participacion de un atleta si el evento no se solapa con otros en los que ya este
+--Procedimiento que agrega la participacion de un atleta si el evento no se solapa con otros en los que ya este
 CREATE OR REPLACE PROCEDURE registrar_participacion_atleta(
   p_idolimpicoa BIGINT,
   p_idevento BIGINT
@@ -26,7 +25,7 @@ END;
 $$;
 
 --Procedimiento #2
---procedimiento que agrega o actualiza un patrocinador para una disciplina dada
+--Procedimiento que agrega o actualiza un patrocinador para una disciplina dada
 CREATE OR REPLACE PROCEDURE asignar_patrocinador_disciplina(
   p_iddisciplina BIGINT,
   p_patrocinadorviejo VARCHAR(50),
@@ -52,6 +51,7 @@ END;
 $$;
 
 --Procedimiento #3
+-- Procedimiento que actualiza de forma segura las localidades de las disciplinas
 CREATE OR REPLACE PROCEDURE actualizar_disciplina_localidad(
     p_iddisciplina BIGINT,
     p_idlocalidad BIGINT
