@@ -265,4 +265,8 @@ SELECT
     Disciplina.Nombre 
 FROM Disciplina 
 INNER JOIN Medalla  
-    ON Disciplina.IdDisciplina = Medalla.IdDisciplina 
+    ON Disciplina.IdDisciplina = Medalla.IdDisciplina
+INNER JOIN Atleta 
+    ON Atleta.IdOlimpicoA = Medalla.IdOlimpicoA
+INNER JOIN Pais 
+	ON Atleta.TRICLAVE = Pais.TRICLAVE
